@@ -17,6 +17,15 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
+    {{-- การสร้างปุ่ม UI สำหรับการเพิ่มข้อมูล --}}
+    <div>
+        <a class="btn btn-primary btn-sm" href="{{ route('adduser') }}">
+            <i class="fas fa-folder">
+            </i>
+            Create User
+        </a>
+    </div>
+
 
     <!-- Main content -->
     <section class="content">
@@ -95,7 +104,7 @@
               </tbody>
           </table>
         </div>
-        <center>{{ $data->links() }}</center>
+        {{ $data->links() }}
         <!-- /.card-body -->
       </div>
       <!-- /.card -->

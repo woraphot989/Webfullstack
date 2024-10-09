@@ -39,4 +39,8 @@ Route::middleware([
     Route::get('/userdata', function () {
         return view('userdata');
     })->name(name: 'userdata');
+    //เส้นทางไปหน้า Adduser
+    Route::get('/adduser', function () {
+        return view('adduser');
+    })->name(name: 'adduser');
 });
