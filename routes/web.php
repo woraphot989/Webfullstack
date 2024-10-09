@@ -43,4 +43,8 @@ Route::middleware([
     Route::get('/adduser', function () {
         return view('adduser');
     })->name(name: 'adduser');
+    //เส้นทางไปหน้า edituser
+    Route::get('/edituser/{id}', function ($id) {
+        return view('edituser',compact('id'));
+    })->name(name: 'edituser');
 });

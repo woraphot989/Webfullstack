@@ -9,12 +9,20 @@ use Livewire\WithFileUploads;
 use Livewire\Component;
 use PhpParser\Node\Stmt\TryCatch;
 
-class Adduser extends Component
+class Edituser extends Component
 {
     use WithFileUploads;
 
-    public $name, $email, $password, $photo;
+    public $uid, $name, $email, $password, $photo , $temp_user;
 
+    public function mount($id)
+    {
+        $temp_user = User::find($id);
+        $this->name = $temp_user->name;
+        $this->email = $temp_user->email;
+        $this->uid = $id;
+        // $this->password = $temp_user->password;
+    }
     public function insert(){
         // dd($this->name);
 
@@ -22,11 +30,13 @@ class Adduser extends Component
         Try{
 
             // เพิ่มข้อมูลลงดาต้าเบส
-             $model = User::create([
+             $model = User::where('id',$this->uid)
+             ->update([
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => Hash::make($this->password)
             ]);
+            $model = User::find($this->uid);
 
             if($this->photo){
                 $fullpath = $this->photo->store('photo','public');
@@ -38,10 +48,7 @@ class Adduser extends Component
                 $model -> save();
                }
 
-               //ถ้าทำเสร็จแล้วให้ไปกลับไป เส้นทางชื่อ userdata
                return redirect()->to(route('userdata'));
-
-
 
         }Catch(Exception $e){
             dd($e);
@@ -50,6 +57,6 @@ class Adduser extends Component
 
     public function render()
     {
-        return view('livewire.adduser');
+        return view('livewire.edituser');
     }
 }
